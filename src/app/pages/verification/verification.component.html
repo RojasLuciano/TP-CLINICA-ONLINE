@@ -1,0 +1,29 @@
+<div class="backgroundStyle">
+    <img class="back" src="../../../assets/EMU_Patterns-background_01.jpg">
+    <div class="container">
+        <div class="card mt-5" *ngIf="user$ | async as user; else loading">
+            <div class="card-body">
+                <h3 class="card-title text-center">¡Gracias por registrarte {{user?.displayName}}!</h3>
+                <div class="form-group mt-2">
+                    <p class="text-center">
+                        Por favor revisa tu correo <strong>{{ user?.email }}</strong> para verificar tu cuenta.
+                    </p>
+                    <p class="text-center">
+                        (Controlá la carpeta de correo no deseado)
+                    </p>
+                </div>
+                <div class="form-group text-center ">
+                    <button class="btn btn-primary" (click)="onSendEmail()">
+                        Re-enviar el correo de verificación
+                    </button><br>
+                    <button class="btn btn-danger" (click)="logout()">Cerrar Sesión</button>
+                </div>
+            </div>
+        </div>
+
+        <ng-template #loading>
+            <p class="text-center">Cargando...</p>
+        </ng-template>
+    </div>
+    
+</div>

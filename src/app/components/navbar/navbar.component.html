@@ -1,0 +1,69 @@
+<nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" routerLink="">
+            <div style="display: flex; align-items: center;">
+                <img class="logoNav" src="../../../assets/logoCompleted.png" alt="">
+            </div>
+        </a>
+        <div class="row">
+            <div class="col">                
+                <div ngbDropdown display="dynamic" class="d-inline-block">
+                    <a class="navbar-brand" *ngIf="userLogged|async as user; else then_content" id="dropdownBasic1"
+                        ngbDropdownToggle>
+                        <div style="display: flex; align-items: center;" *ngIf="user.displayName">
+                            <a class="borderLog">
+                                <img class="picLog" src="{{user.photoURL}}" *ngIf="user.photoURL" alt="">
+                                <img class="picLog" src="../../../assets/picUser.jpeg" *ngIf="!user.photoURL" alt="">
+                            </a>
+                            <div>
+                                <a class="navbar-brand">
+                                    {{user.displayName?user.displayName:user.email}}
+                                </a>
+                            </div>
+                        </div>
+                        <div style="display: inline-flex; align-items: center;" *ngIf="!user.displayName">
+                            <a class="borderLog">
+                                <img class="picLog" src="../../../assets/picUser.jpeg" *ngIf="!user.photoURL" alt="">
+                            </a>
+                            <div>
+                                <a class="navbar-brand"> {{user.email}} </a>
+                            </div>
+                        </div>
+
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                            <button ngbDropdownItem routerLink="home/profile">Mi perfil</button>
+
+                            <div *ngIf="admin|async as User">
+                                <div *ngIf="User && role == 'Admin'">
+                                    <div class="dropdown-divider">
+                                    </div>
+                                    <a ngbDropdownItem *ngIf="role == 'Admin' && user" id="control"
+                                        routerLink="home/panel">Panel de Control</a>
+                                    <a ngbDropdownItem *ngIf="role == 'Admin' && user"
+                                        routerLink="home/panel-shift">Panel de Turnos</a>
+                                </div>
+                                <div *ngIf="User && role == 'Specialist'">
+                                    <a ngbDropdownItem *ngIf="role == 'Specialist' && user" id="control"
+                                        routerLink="home/panel-patient">Panel de Pacientes</a>
+                                </div>
+
+                                <div class="dropdown-divider"></div>
+                                <button *ngIf="role != 'Admin'" ngbDropdownItem routerLink="home/turns">Mis
+                                    Turnos</button>
+                                <button ngbDropdownItem routerLink="home/request">Solicitar Turno</button>
+                                <div class="dropdown-divider"></div>
+                                <button ngbDropdownItem (click)="logout()">Cerrar Sesión</button>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <ng-template #then_content>
+            <a class="navbar-brand" routerLink="login">
+                Iniciar Sesión
+            </a>
+        </ng-template>
+    </div>
+</nav>

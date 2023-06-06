@@ -1,0 +1,22 @@
+.logoNav {
+    width: 20%;
+}
+
+.container-fluid {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-brand {
+    display: flex;
+    color: #006bdb;
+    font-style: initial;
+    font-size: 100%;
+    font-weight: bold;
+    align-items: center;
+}
+
+.control {
+    padding-left: 10px;
+}

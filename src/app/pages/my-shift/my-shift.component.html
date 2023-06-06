@@ -1,0 +1,9 @@
+Mis Turnos
+<div *ngIf="userBase.role == 'Patient'" class="patient">
+    Pacientes
+    <app-turns-list></app-turns-list>
+</div>
+<div *ngIf="userBase.role == 'Specialist'" class="specialist">
+    Especialistas
+    <app-turns-list-assigned></app-turns-list-assigned>
+</div>

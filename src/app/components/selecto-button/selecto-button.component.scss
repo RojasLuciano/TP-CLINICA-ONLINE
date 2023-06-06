@@ -1,0 +1,30 @@
+.btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: sticky;
+    border-radius: 100%;
+    background-color: #77acfd;
+    margin: 3px;
+}
+
+.btnLabel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: sticky;
+    background-color: transparent;
+}
+
+.back {
+    background-size: cover;
+    background-position: absolute;
+    width: 100%;
+    position: fixed;
+}
+
+.autoLog {
+    align-items: center;
+    position: relative;
+    margin-top: 20px;
+}

@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "lr-clinicaonline": {
+      "hosting": {
+        "clinicaOnline": [
+          "lr-clinicaonline"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "lr-clinicaonline"
+  }
+}
