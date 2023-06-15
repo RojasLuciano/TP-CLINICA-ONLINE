@@ -1,5 +1,6 @@
-<div class="backgroundStyle"><img class="back" src="../../../assets/EMU_Patterns-background_01.jpg">
-    <div class="container">
+<div class="profile">
+    <div class="center card" style="width: 70%;">
+
         <div class="card-body p-3">
             <div class="buttonType">
                 <input type=image src="../../../assets/CO_People_01.svg" (click)="changeStatus(false)" width="250"
@@ -18,7 +19,7 @@
 
                     <label style="float: left">Apellido</label>
                     <input class="form-control" formControlName="lastName" type="apellido"
-                        placeholder="Ingrese su apellido" required>
+                         placeholder="Ingrese su apellido" required>
                     <div class="errorMessage"
                         *ngIf="getValue('lastName')?.invalid && (getValue('lastName').touched || getValue('lastName').dirty)">
                         Ingrese un apellido válido</div>

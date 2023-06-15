@@ -24,7 +24,7 @@ module.exports = {
     "@typescript-eslint",
     "import",
   ],
-  rules: { 
+  rules: {
     "quotes": ["error", "double"],
     "import/no-unresolved": 0,
   },

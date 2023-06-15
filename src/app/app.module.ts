@@ -29,6 +29,8 @@ import { CaptchaComponent } from './components/captcha/captcha.component';
 import { UsersService } from './services/users.service';
 import { ManagementService } from './services/management.service';
 import { SpecialtyComponent } from './components/specialty/specialty.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ReportsComponent } from './pages/reports/reports.component';
 
 const firebaseConfig = {
   apiKey: "AIzaSyDARbI55OrZ4GEwWDs6XaXQj2smcTfkdU8",
@@ -52,7 +54,8 @@ const firebaseConfig = {
     VerificationComponent,
     WelcomeComponent,
     CaptchaComponent,
-    SpecialtyComponent,
+    SpecialtyComponent,    
+
   ],
   imports: [
     BrowserModule,
@@ -63,6 +66,7 @@ const firebaseConfig = {
     AngularFireModule.initializeApp(firebaseConfig),
     RouterModule,
     HttpClientModule,
+    BrowserAnimationsModule,
     SpinnerModule,
     AngularFirestoreModule,
     AngularFireStorageModule, provideFirebaseApp(() => initializeApp(environment.firebase)), provideAuth(() => getAuth()), provideFirestore(() => getFirestore()), provideStorage(() => getStorage())
