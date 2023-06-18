@@ -17,6 +17,7 @@ export class SelectoButtonComponent implements OnInit {
   }
 
   selector(item: any) {
+    console.log(item);
     this.itemSelected.emit(item);
   }
 

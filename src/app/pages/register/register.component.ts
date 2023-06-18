@@ -73,7 +73,7 @@ export class RegisterComponent implements OnInit {
     this.user.enable = this.isSpecialist ? false : true;
 
     if (this.getValue("password").value === this.getValue("rePassword").value) {
-      this.modal.modarlCaptcha().then(res => {
+      this.modal.modalCaptcha().then(res => {
         if (res) {
           this.auth.register(this.form.value, this.files, this.specialty, this.isSpecialist).then((res) => {
           }).catch(error => {
@@ -120,7 +120,7 @@ export class RegisterComponent implements OnInit {
 
   async userA() {
     //this.userService.getUserAll();
-    this.modal.modarlCaptcha();
+    this.modal.modalCaptcha();
   }
 
   specialtySelect(specialty: Specialty[]) {

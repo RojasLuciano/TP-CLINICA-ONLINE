@@ -20,7 +20,7 @@
         </tr>
     </thead>
     <tbody>
-        <tr
+        <tr appButtonSensitive
             *ngFor="let user of (turns | turnsFilterS : textFill : ['patient','date','status','specialty'] ); index as i">
             <th scope="row">{{ i + 1 }}</th>
             <td>{{user | tunsDay}} {{ user | tunsHour }}</td>
@@ -62,7 +62,7 @@
                 <td><button disabled class="btn btn-outline-dark">Ver</button></td>
             </ng-template>
 
-            <td>{{user.status}}</td>
+            <td>{{user.status | statusTra}}</td>
 
         </tr>
     </tbody>

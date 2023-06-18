@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <a class="navbar-brand" routerLink="">
             <div style="display: flex; align-items: center;">
-                <img class="logoNav" src="../../../assets/logoCompleted.png" alt="">
+                <img class="logoNav" appImgChange src="../../../assets/logoCompleted.png" alt="">
             </div>
         </a>
         <div class="row">
@@ -55,6 +55,7 @@
                                     Turnos</button>
                                 <button *ngIf="role != 'Specialist'" ngbDropdownItem routerLink="home/request">Solicitar
                                     Turno</button>
+
                                 <div class="dropdown-divider"></div>
                                 <button ngbDropdownItem (click)="logout()">Cerrar Sesión</button>
                             </div>

@@ -1,12 +1,20 @@
-<button class="btn btn-success" (click)="downloadSummary()">Descargar historia clínica completa</button>
-<hr>
-Descargas por Especialidad<br>
-<div class="btn-group btn-group-sm" style="margin-right: 3;" *ngFor="let user of listSpecialty">
-    <button class="btn btn-secondary" (click)="downloadForSpecialty(user)">{{user}}</button>
+<!-- <button class="btn btn-secondary" *ngIf="!isResume" (click)="resume()">Ver Resumida</button>
+<button class="btn btn-secondary" *ngIf="isResume" (click)="resume()">Ver Completa</button>
+<hr> -->
+<h5>
+    Descargas
+</h5>
+<button class="btn btn-success" (click)="downloadSummary()">Historia clínica completa</button>
+<div class="btn-group btn-group" style="margin-right: 3;" *ngFor="let user of listSpecialty">
+    <button class="btn btn-secondary" (click)="downloadForSpecialty(user)">Solo {{user}}</button>
 </div>
-<hr>
-<button class="btn btn-secondary" *ngIf="!isResume" (click)="resume()">Resumen</button>
-<button class="btn btn-secondary" *ngIf="isResume" (click)="resume()">Completa</button>
+<br>
+<br>
+<div class="input-group input-group-sm mb-3">
+    <span class="input-group-text" id="inputGroup-sizing-sm">Filtro</span>
+    <input type="text" [(ngModel)]="textFill" class="form-control" aria-label="Sizing example input"
+        aria-describedby="inputGroup-sizing-sm">
+</div>
 <table class="table" *ngIf="!isResume">
     <thead>
         <tr>
@@ -24,11 +32,11 @@ Descargas por Especialidad<br>
             <th scope="col">4º Adicional</th>
             <th scope="col">5º Adicional</th>
             <th scope="col">6º Adicional</th>
-            <th scope="col">Descargar</th>
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let user of listSummary; index as i">
+        <tr appButtonSensitive
+            *ngFor="let user of (listSummary | summaryFilter : textFill : ['height','weight','temperature','pressure','name1','value1','name2','value2','name3','value3','name4','value4','name5','value5','name6','value6','patient','specialist','date'] ); index as i">
             <th scope="row">{{ i + 1 }}</th>
             <td>{{ user | formatDay}}</td>
             <td>{{ user.specialist }}</td>
@@ -43,7 +51,6 @@ Descargas por Especialidad<br>
             <td>{{ user | summaryDinamic : 4}}</td>
             <td>{{ user | summaryDinamic : 5}}</td>
             <td>{{ user | summaryDinamic : 6}}</td>
-            <td><button class="btn btn-outline-primary">Excel</button></td>
         </tr>
     </tbody>
 </table>
@@ -58,11 +65,11 @@ Descargas por Especialidad<br>
             <th scope="col">Peso</th>
             <th scope="col">Temperatura</th>
             <th scope="col">Presión</th>
-            <th scope="col">Descargar</th>
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let user of listSummary; index as i">
+        <tr appButtonSensitive
+            *ngFor="let user of (listSummarySmall | summaryFilterSmall : textFill : ['height','weight','temperature','pressure','patient','specialist','date'] ); index as i">
             <th scope="row">{{ i + 1 }}</th>
             <td>{{ user | formatDay}}</td>
             <td>{{ user.specialist }}</td>
@@ -71,7 +78,6 @@ Descargas por Especialidad<br>
             <td>{{ user.weight }}</td>
             <td>{{ user.temperature }}</td>
             <td>{{ user.pressure }}</td>
-            <td><button class="btn btn-outline-primary">Excel</button></td>
         </tr>
     </tbody>
 </table>

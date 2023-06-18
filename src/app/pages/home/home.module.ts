@@ -33,6 +33,21 @@ import { PatientCardListComponent } from 'src/app/components/patient-card-list/p
 import { SummaryDinamicPipe } from 'src/app/pipes/summary-dinamic.pipe';
 import { FormatDayPipe } from 'src/app/pipes/format-day.pipe';
 import { ReportsComponent } from '../reports/reports.component';
+import { ButtonClickedDirective } from 'src/app/directives/button-clicked.directive';
+import { ButtonSensitiveDirective } from 'src/app/directives/button-sensitive.directive';
+import { ButtonRadiusSensitiveDirective } from 'src/app/directives/button-radius-sensitive.directive';
+import { ButtonClicked2Directive } from 'src/app/directives/button-clicked-2.directive';
+import { NumberOnlyDirective } from 'src/app/directives/number-only.directive';
+import { SummaryFilterPipe } from 'src/app/pipes/summary-filter.pipe';
+import { CaptchaComponent } from 'src/app/components/captcha/captcha.component';
+import { CaptchaDirective } from 'src/app/directives/captcha.directive';
+import { LogsListComponent } from '../reports/logs-list/logs-list.component';
+import { TurnsDayComponent } from '../reports/turns-day/turns-day.component';
+import { TurnsFanallyComponent } from '../reports/turns-fanally/turns-fanally.component';
+import { TurnsRequestComponent } from '../reports/turns-request/turns-request.component';
+import { TurnsSpecialtyComponent } from '../reports/turns-specialty/turns-specialty.component';
+import { StatusTraPipe } from 'src/app/pipes/status-tra.pipe';
+import { SummaryFilterSmallPipe } from 'src/app/pipes/summary-filter-small.pipe';
 
 @NgModule({
   declarations: [
@@ -66,6 +81,21 @@ import { ReportsComponent } from '../reports/reports.component';
     SummaryDinamicPipe,
     FormatDayPipe,
     ReportsComponent,
+    ButtonClickedDirective,
+    ButtonSensitiveDirective,
+    ButtonRadiusSensitiveDirective,
+    ButtonClicked2Directive,
+    NumberOnlyDirective,
+    SummaryFilterPipe,
+    CaptchaComponent,
+    CaptchaDirective,
+    LogsListComponent,
+    TurnsSpecialtyComponent,
+    TurnsDayComponent,
+    TurnsRequestComponent,
+    TurnsFanallyComponent,
+    StatusTraPipe,
+    SummaryFilterSmallPipe,
   ],
   imports: [
     CommonModule,

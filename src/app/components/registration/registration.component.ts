@@ -103,7 +103,7 @@ export class RegistrationComponent implements OnInit {
 
     if (this.getValue("password").value === this.getValue("rePassword").value) {
 
-      this.modal.modarlCaptcha().then(res => {
+      this.modal.modalCaptcha().then(res => {
         if (res) {
           this.auth.registerPanel(this.form.value, this.files).then((res) => {
           }).catch(error => {

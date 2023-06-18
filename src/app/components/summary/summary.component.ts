@@ -65,6 +65,8 @@ export class SummaryComponent implements OnInit {
   destdata: any;
   newSummary = new Summary();
   disabled: boolean = false;
+  captcha: boolean = false;
+
 
   getValue(value: string): AbstractControl {
     return this.summary.get(value) as FormGroup;
@@ -131,12 +133,29 @@ export class SummaryComponent implements OnInit {
     }
   }
 
+  getCaptcha() {
+    let captcha = JSON.parse(sessionStorage.getItem('captcha')!);
+    return captcha ? captcha : null;
+  }
+
   saveSummary() {
     if (this.summary.valid) {
-      this.spinnerService.show();
-      this.userService.updateTurnsFinnally(this.turn, 'Finalized');
-      this.userService.addSummary(this.summary.value, this.turn).then(() => { this.modal.modalSimple("Finalizado", "Se finalizó el turno correctamente", "success"); }).finally(() => this.spinnerService.hide());
-      this.modalService.dismissAll();
+      let captcha = this.getCaptcha();
+      if (captcha == true) {
+        this.modal.modalCaptcha().then(res => {
+          if (res) {
+            this.spinnerService.show();
+            this.userService.updateTurnsFinnally(this.turn, 'Finalized');
+            this.userService.addSummary(this.summary.value, this.turn).then(() => { this.modal.modalSimple("Finalizado", "Se finalizó el turno correctamente", "success"); }).finally(() => this.spinnerService.hide());
+            this.modalService.dismissAll();
+          }
+        })
+      } else {
+        this.spinnerService.show();
+        this.userService.updateTurnsFinnally(this.turn, 'Finalized');
+        this.userService.addSummary(this.summary.value, this.turn).then(() => { this.modal.modalSimple("Finalizado", "Se finalizó el turno correctamente", "success"); }).finally(() => this.spinnerService.hide());
+        this.modalService.dismissAll();
+      }
     }
   }
 
@@ -154,5 +173,9 @@ export class SummaryComponent implements OnInit {
 
   close() {
     this.modalService.dismissAll();
+  }
+
+  pruba() {
+    console.log(this.captcha);
   }
 }

@@ -1,5 +1,5 @@
-<button class="btn btn-outline-secondary" (click)="changeStyle()">Cambiar Estilo</button>
-<button *ngIf="!isCard" class="btn btn-outline-secondary" (click)="downloadUsers()">Descargar Plantilla</button>
+<!-- <button class="btn btn-outline-secondary" (click)="changeStyle()">Cambiar Estilo</button> -->
+<button  class="btn btn-outline-secondary" (click)="downloadUsers()">Descargar Plantilla</button>
 <table *ngIf="!isCard" class="table" id="users-table">
     <thead>
         <tr>
@@ -7,6 +7,7 @@
             <th scope="col">Nombre</th>
             <th scope="col">Apellido</th>
             <th scope="col">Edad</th>
+            <th scope="col">Tipo</th>
             <th scope="col">Obra Social</th>
             <th scope="col">DNI</th>
         </tr>
@@ -17,6 +18,7 @@
             <td>{{ user.name }}</td>
             <td>{{ user.lastName }}</td>
             <td>{{ user.age }}</td>
+            <td>{{ user.role }}</td>
             <td>{{ user.socialWork }}</td>
             <td>{{ user.dni }}</td>
         </tr>

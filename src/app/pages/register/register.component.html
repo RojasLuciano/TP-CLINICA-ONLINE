@@ -19,7 +19,7 @@
 
                     <label style="float: left">Apellido</label>
                     <input class="form-control" formControlName="lastName" type="apellido"
-                         placeholder="Ingrese su apellido" required>
+                        placeholder="Ingrese su apellido" required>
                     <div class="errorMessage"
                         *ngIf="getValue('lastName')?.invalid && (getValue('lastName').touched || getValue('lastName').dirty)">
                         Ingrese un apellido válido</div>

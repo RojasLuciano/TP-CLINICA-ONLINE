@@ -19,7 +19,7 @@ import { moveFromRight, moveFromBottom, moveFromBottomFade, scaleDownFromBottom 
   ]
 })
 export class AppComponent {
-  title = 'clinicaOnline';
+  title = 'clinicOnline';
 
   getState(outlet: any) {
     return outlet.activatedRouteData.state;

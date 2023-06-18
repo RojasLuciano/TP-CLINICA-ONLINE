@@ -25,12 +25,14 @@ import { AuthService } from './services/auth.service';
 import { PermissionsGuard } from './guards/permissions.guard';
 import { WelcomeComponent } from './pages/welcome/welcome.component';
 import { VerificationComponent } from './pages/verification/verification.component';
-import { CaptchaComponent } from './components/captcha/captcha.component';
 import { UsersService } from './services/users.service';
 import { ManagementService } from './services/management.service';
 import { SpecialtyComponent } from './components/specialty/specialty.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ReportsComponent } from './pages/reports/reports.component';
+import { ImgChangeDirective } from './directives/img-change.directive';
+import { StatusTraPipe } from './pipes/status-tra.pipe';
+import { Captcha2Directive } from './directives/captcha2.directive';
+import { SummaryFilterSmallPipe } from './pipes/summary-filter-small.pipe';
 
 const firebaseConfig = {
   apiKey: "AIzaSyDARbI55OrZ4GEwWDs6XaXQj2smcTfkdU8",
@@ -53,9 +55,9 @@ const firebaseConfig = {
     NotFoundComponent,
     VerificationComponent,
     WelcomeComponent,
-    CaptchaComponent,
-    SpecialtyComponent,    
-
+    SpecialtyComponent,
+    ImgChangeDirective,
+    Captcha2Directive,
   ],
   imports: [
     BrowserModule,

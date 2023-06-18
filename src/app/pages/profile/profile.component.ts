@@ -52,17 +52,19 @@ export class ProfileComponent implements OnInit {
           this.userBase = user[0];
           if (this.userBase.specialty) {
             this.userBase.specialty?.forEach(name => {
+
+        
               switch (name.name) {
-                case 'Clínico':
+                case 'Kinesiologia':
                   name.photoURL = "../../../assets/clinic.png";
                   break;
-                case 'Ortodoncia':
+                case 'Kinesiologia':
                   name.photoURL = "../../../assets/dentist.png";
                   break;
-                case 'Psiquiatra':
+                case 'Kinesiologia':
                   name.photoURL = "../../../assets/psychiatrist.png";
                   break;
-                case 'Cardiólogo':
+                case 'Kinesiologia':
                   name.photoURL = "../../../assets/cardiologist.png";
                   break;
                 default:

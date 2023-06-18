@@ -14,15 +14,17 @@ import { Turns } from 'src/app/entities/turns';
 export class PacientListComponent implements OnInit {
 
   public users: any = [];
-  isCard = true;
+  isCard = false;
 
   constructor(private userService: UsersService, private modal: ModalService) { }
 
+
   ngOnInit(): void {
-    this.userService.getUserAllPatient().subscribe((users) => {
-      this.users = users;
-    })
-  }
+    // this.userService.getUserAllPatient().subscribe((users) => {
+     this.userService.getUserAll().subscribe((users) => {
+       this.users = users;
+     })
+   }
 
   downloadUsers() {
     var table_elt = document.getElementById("users-table");

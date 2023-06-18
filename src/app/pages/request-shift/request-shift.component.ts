@@ -59,14 +59,15 @@ export class RequestShiftComponent implements OnInit {
     let bufferSpe: Specialty[] = [];
     this.userService.getSpecialtyAll().subscribe(spe => {
       spe.forEach(name => {
+        console.log("name.name", name.name);
         switch (name.name) {
-          case 'Clínico':
+          case 'Kinesiologia':
             name.photoURL = "../../../assets/clinic.png";
             break;
           case 'Ortodoncia':
             name.photoURL = "../../../assets/dentist.png";
             break;
-          case 'Psiquiatra':
+          case 'Oftalmologia':
             name.photoURL = "../../../assets/psychiatrist.png";
             break;
           case 'Cardiólogo':
@@ -110,14 +111,33 @@ export class RequestShiftComponent implements OnInit {
         minutes: this.turnSelected.minutes,
         status: 'Reserved',
       }
-      this.userService.addTurn(newTurn).then(() => {
-        this.modal.modalSimple("Reserva", "Se reservó el turno correctamente", 'success');
-        this.router.navigate(['/home/turns'])
-      }).catch(error => { console.log(error); this.modal.modalMessage("Hubo un error con el usuario logueado. \nCierre sesión y vuelva a iniciar", 'error') }).finally(() => this.spinnerService.hide())
+      let captcha = this.getCaptcha();
+      if (captcha == true) {
+        this.modal.modalCaptcha().then(res => {
+          if (res) {
+            this.userService.addTurn(newTurn).then(() => {
+              this.modal.modalSimple("Reserva", "Se reservó el turno correctamente", 'success');
+              this.router.navigate(['/home/turns'])
+            }).catch(error => { console.log(error); this.modal.modalMessage("Hubo un error con el usuario logueado. \nCierre sesión y vuelva a iniciar", 'error') }).finally(() => this.spinnerService.hide())
+          } else {
+            this.spinnerService.hide();
+          }
+        })
+      } else {
+        this.userService.addTurn(newTurn).then(() => {
+          this.modal.modalSimple("Reserva", "Se reservó el turno correctamente", 'success');
+          this.router.navigate(['/home/turns'])
+        }).catch(error => { console.log(error); this.modal.modalMessage("Hubo un error con el usuario logueado. \nCierre sesión y vuelva a iniciar", 'error') }).finally(() => this.spinnerService.hide())
+      }
     } else {
       this.modal.modalMessage("Debe seleccionar el turno correctamente", 'error');
       this.spinnerService.hide();
     }
+  }
+
+  getCaptcha() {
+    let captcha = JSON.parse(sessionStorage.getItem('captcha')!);
+    return captcha ? captcha : null;
   }
 
   loadSpecialist() {
@@ -140,6 +160,7 @@ export class RequestShiftComponent implements OnInit {
     }
     )
 }
+
 
   resetInputs() {
     this.turnSelected = new Turns();
@@ -225,7 +246,7 @@ export class RequestShiftComponent implements OnInit {
           name: this.getDaySpanish(day.getDay()),
           dayWeek: day.getDay(),
           day: day.getDate(),
-          month: day.getMonth(),
+          month: day.getMonth() + 1,
           date: day,
         }
         daysAvailables.push(auxDay);

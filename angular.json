@@ -6,7 +6,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "clinicaOnline": {
+    "clinicOnline": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -75,10 +75,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "clinicaOnline:build:production"
+              "browserTarget": "clinicOnline:build:production"
             },
             "development": {
-              "browserTarget": "clinicaOnline:build:development"
+              "browserTarget": "clinicOnline:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -86,7 +86,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "clinicaOnline:build"
+            "browserTarget": "clinicOnline:build"
           }
         },
         "test": {
@@ -112,7 +112,7 @@
           "options": {
             "prerender": false,
             "ssr": false,
-            "browserTarget": "clinicaOnline:build:production",
+            "browserTarget": "clinicOnline:build:production",
             "firebaseProject": "lr-clinicaonline",
             "firebaseHostingSite": "lr-clinicaonline"
           }
@@ -120,5 +120,5 @@
       }
     }
   },
-  "defaultProject": "clinicaOnline"
+  "defaultProject": "clinicOnline"
 }

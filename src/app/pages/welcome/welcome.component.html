@@ -1,6 +1,6 @@
 <div class="textHome">
     <div class="titleHome">¿Querés asociarte?</div>
-    <div class="commentHome">Contratá la mejor cobertura médica para vos y tu familia</div>
+    <br>
     <div *ngIf="userLogged|async as user; else loading">
         <button class="btn btn-danger" (click)="logout()">Cerrar Sesión</button>
     </div>

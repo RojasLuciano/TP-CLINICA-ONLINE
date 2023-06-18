@@ -22,13 +22,7 @@ export class LoginComponent implements OnInit {
     private readonly fb: FormBuilder, private spinnerService: SpinnerService,
     private modal: ModalService,
     private userService: UsersService,
-    private logService: LogsService) {
-
-    this.form = new FormGroup({
-      email: new FormControl(),
-      password: new FormControl()
-    });
-  }
+    private logService: LogsService) {}
 
   getValue(value: string): AbstractControl {
     return this.form.get(value) as FormGroup;
@@ -72,8 +66,10 @@ export class LoginComponent implements OnInit {
   }
 
   autoLogin(user: string): void {
-    this.form.controls['email'].setValue(user);
-    this.form.controls['password'].setValue('123qwe');
+    this.form.patchValue({
+      email: user,
+      password: '123qwe'
+    });
   }
 
   onSubmit() {
