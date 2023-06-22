@@ -9,7 +9,7 @@ export class TurnsFilterSPipe implements PipeTransform {
   transform(items: Turns[], keyword: any, properties: string[]): Turns[] {
     if (!items) return [];
     if (!keyword) return items;
-    debugger;
+    // debugger;
     return items.filter(item => {
       var itemFound: Boolean = false;
       for (let i = 0; i < properties.length; i++) {

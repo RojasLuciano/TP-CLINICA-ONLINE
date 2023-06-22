@@ -14,10 +14,11 @@ body {
   background-position: absolute;
   width: 100%;
   //background: url("../src/assets/newBack5.jpg");
-  background: url("../src/assets/backS.png"), #b3aeff;
-  background: url("../src/assets/backS.png"),
+  background: //url("../src/assets/backS.png"), 
+  #b3aeff;
+  background:// url("../src/assets/backS.png"),
     -webkit-gradient(linear, right top, left top, from(#b3e3ff), to(#c08e91));
-  background: url("../src/assets/backS.png"),
+  background: //url("../src/assets/backS.png"),
     linear-gradient(to left, #8194d4, #abd8e0);  
   //background: url("../src/assets/EMU_Patterns-background_02.jpg");
 }

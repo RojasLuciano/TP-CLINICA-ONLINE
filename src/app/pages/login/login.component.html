@@ -1,73 +1,31 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <style>
-    html, body {
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    .row {
-      display: flex;
-    }
-    .column {
-      flex: 1;
-      padding: 10px;
-    }
-    .image-container {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      align-items: center; /* Alinea las imágenes en el centro horizontal */
-    }
-    .card-body {
-      padding: 10px;
-    }
-    .profile {
-      margin-top: 50px;
-    }
-    .form-control {
-      font-size: 16px; /* Aumenta el tamaño de letra de los campos de entrada */
-    }
-    label {
-      font-size: 18px; /* Aumenta el tamaño de letra de las etiquetas */
-    }
-  </style>
-</head>
-<body>
-  <div class="profile">
-    <div class="row" style="display: flex;">
-      <div class="column" style="width:100%; display: flex; justify-content: space-between;">
-        <div class="image-container">
-          <input type="image" src="../../../assets/user1.png" (click)="autoLogin('lucianoexcle@gmail.com')" width="50" height="50" style="margin-right: 10px;">
-          <input type="image" src="../../../assets/user3.png" (click)="autoLogin('NROJAS@trabajo.gob.ar')" width="50" height="50">
-          <input type="image" src="../../../assets/user5.png" (click)="autoLogin('lucianorojas1993@gmail.com')" width="50" height="50" style="margin-right: 10px;">
-          <input type="image" src="../../../assets/user4.png" (click)="autoLogin('diviv78850@aramask.com')" width="50" height="50" style="margin-right: 10px;">
-          <input type="image" src="../../../assets/user2.png" (click)="autoLogin('bacawosi@finews.biz')" width="50" height="50" style="margin-right: 10px;">
-          <input type="image" src="../../../assets/user6.png" (click)="autoLogin('mfgfjs28@icznn.com')" width="50" height="50">
-        </div>
-        <form [formGroup]="form" (ngSubmit)="onSubmit()">
-          <div class="card-body p-4">
-            <div class="form-group">
-              <label style="float: left; font-size: 18px; color: #ffffff;">Email</label>
-              <input class="form-control" formControlName="email" type="email" placeholder="Ingrese su email" required>
-              
-              <div class="errorMessage" *ngIf="getValue('email')?.invalid && (getValue('email').touched || getValue('email').dirty)">
-                Ingrese un mail válido
-              </div>
-              <label style="float: left; font-size: 18px;color: #ffffff;">Password</label>
-              <input autocomplete="new-password" #password class="form-control" formControlName="password" type="password" placeholder="Ingrese su password" required>
-              <div class="errorMessage" *ngIf="getValue('password')?.invalid && (getValue('password').touched || getValue('password').dirty)">
-                Mínimo 6 caracteres
-              </div>
-              <button class="btn btn-primary form-control" type="button" [disabled]="!form.valid" (click)="onSubmit()">Ingresar</button>
-              <label class="register" style="color: #ffffff;">¿Todavía no tienes tu cuenta? <a routerLink="/register">Regístrate</a></label>
-            </div>
+<div class="profile">
+  <div class="center card" style="width: 70%;">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="card-body p-4">
+        <div class="form-group">
+          <label style="float: left">Email</label>
+          <input class="form-control" formControlName="email" type="email" placeholder="Ingrese su email" required>
+          <div class="errorMessage" *ngIf="getValue('email')?.invalid && (getValue('email').touched || getValue('email').dirty)">
+            Ingrese un mail válido
           </div>
-        </form>
+          <label style="float: left">Password</label>
+          <input autocomplete="new-password" #password class="form-control" formControlName="password" type="password" placeholder="Ingrese su password" required>
+          <div class="errorMessage" *ngIf="getValue('password')?.invalid && (getValue('password').touched || getValue('password').dirty)">
+            Mínimo 6 caracteres
+          </div>
+        </div>
+        <button class="btn btn-primary form-control" type="submit" [disabled]="!form.valid">Ingresar</button>
+
+        <label class="register">¿Todavía no tenés tu cuenta? <a routerLink="/register">Registrate</a></label>
       </div>
+    </form>
+    <div class="card-body p-4 autoLog">
+      <input type="image" src="../../../assets/user1.png" (click)="autoLogin('lucianoexcle@gmail.com')" width="150" height="150" class="imageBtn">
+      <input type="image" src="../../../assets/user3.png" (click)="autoLogin('NROJAS@trabajo.gob.ar')" width="150" height="150" class="imageBtn">
+      <input type="image" src="../../../assets/user5.png" (click)="autoLogin('lucianorojas1993@gmail.com')" width="150" height="150" class="imageBtn">
+      <input type="image" src="../../../assets/user4.png" (click)="autoLogin('diviv78850@aramask.com')" width="150" height="150" class="imageBtn">
+      <input type="image" src="../../../assets/user2.png" (click)="autoLogin('bacawosi@finews.biz')" width="150" height="150" class="imageBtn">
+      <input type="image" src="../../../assets/user6.png" (click)="autoLogin('mfgfjs28@icznn.com')" width="150" height="150">
     </div>
   </div>
-</body>
-</html>
+</div>

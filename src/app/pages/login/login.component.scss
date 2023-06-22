@@ -5,12 +5,14 @@
     position: fixed;
 }
 
-
-
 .autoLog {
     align-items: center;
     position: relative;
     margin-top: 20px;
+}
+
+.autoLog input[type="image"] {
+    margin-right: 10px;
 }
 
 :host {
