@@ -1,8 +1,8 @@
 <div class="profile">
-    <div class="center card" style="width: 70%;">
+    <div class="center card" style="width: 90%;">
         <h4>Turnos</h4>
         <div *ngIf="userBase.role == 'Patient'" class="patient">
-            <app-turns-list></app-turns-list>
+            <app-turns-list class="flexible"></app-turns-list>
         </div>
         <div *ngIf="userBase.role == 'Specialist'" class="specialist">
             <app-turns-list-assigned></app-turns-list-assigned>

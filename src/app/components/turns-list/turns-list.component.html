@@ -10,16 +10,24 @@
             <th scope="col">Fecha</th>
             <th scope="col">Especialista</th>
             <th scope="col">Especialidad</th>
-            <th scope="col">Cancelar Turno</th>
+            <th scope="col">Cancelar Turno2</th>
             <th scope="col">Ver Reseña</th>
             <th scope="col">Encuesta</th>
             <th scope="col">Calificar Atención</th>
             <th scope="col">Estado</th>
+
+            <th scope="col">Altura</th>
+            <th scope="col">Peso</th>
+            <th scope="col">Temperatura</th>
+            <th scope="col">Presión</th>
+            <th scope="col">Dato1</th>
+            <th scope="col">Dato2</th>
+            <th scope="col">Dato3</th>
         </tr>
     </thead>
     <tbody>
         <tr appButtonSensitive
-            *ngFor="let user of (turns | turnsFilter : textFill : ['date','specialist','specialty'] ); index as i">
+            *ngFor="let user of (turns | turnsFilter : textFill : ['date','specialist','specialty','status','height','weight','temperature','pressure','name1','name2','name3']) ; let i = index">
             <th scope="row">{{ i + 1 }}</th>
             <td>{{user | tunsDay}} {{ user | tunsHour }}</td>
             <td>{{ user.specialist }}</td>
@@ -52,6 +60,14 @@
                 <td><button disabled class="btn btn-outline-dark">Calificar</button></td>
             </ng-template>
             <td>{{user.status | statusTra}}</td>
+
+            <td>{{ user.height }}</td>
+            <td>{{ user.weight }}</td>
+            <td>{{ user.temperature }}</td>
+            <td>{{ user.pressure }}</td>
+            <td>{{ user.name1 }} {{ user.value1 }}</td>
+            <td>{{ user.name2 }} {{ user.value2 }}</td>
+            <td>{{ user.name3 }} {{ user.value3 }}</td>
         </tr>
     </tbody>
 </table>

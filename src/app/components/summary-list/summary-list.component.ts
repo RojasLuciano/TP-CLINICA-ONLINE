@@ -21,8 +21,13 @@ export class SummaryListComponent implements OnInit {
   isResume = true;
   textFill: string = '';
   listSpecialty: string[] = [];
+  public specialists: any = [];
 
   constructor(private userService: UsersService, private modal: ModalService) { }
+
+  // ngOnInit(): void {
+
+  // }
 
   ngOnInit(): void {
     this.userService.getSumariId(this.user.uid!, 'patientUid').subscribe((users) => {
@@ -34,7 +39,16 @@ export class SummaryListComponent implements OnInit {
         }
       })
     })
+
+
+    this.userService.getUserAllSpecialist().subscribe((users) => {
+      this.specialists = users;
+      this.specialists.forEach((specialist: any) => {
+        console.log(specialist.name);
+      })
+    })
   }
+
 
   resume() {
     this.isResume = !this.isResume;
@@ -43,120 +57,80 @@ export class SummaryListComponent implements OnInit {
   downloadSummary() {
     if (this.listSummary && this.listSummary.length > 0) {
       var line = 70;
-      let PDF = new jsPDF('p', 'mm', 'a4',);
-      let pageHeight = (PDF.internal.pageSize.height) - 10;
+      let PDF = new jsPDF('p', 'mm', 'a4');
+      let pageHeight = PDF.internal.pageSize.height - 10;
+  
       PDF.addImage('../../assets/icon.png', 'PNG', 10, 10, 50, 50);
       const date = new Date().toLocaleString();
-      PDF.text(`Clínica Online`, 70, 20);
-      PDF.text(`${date}`, 150, 10);
+  
+      PDF.setFontSize(18);
+      PDF.text('Clínica Online', 70, 20);
+  
+      PDF.setFontSize(10);
+      PDF.text(date, 150, 10);
       PDF.text(`Historial de turnos de ${this.listSummary[0].patient}`, 70, 30);
+  
       this.listSummary.forEach(turn => {
         let dayFormat = new FormatDayPipe().transform(turn);
-        PDF.text(`-----------------------------------------------------`, 15, line);
-        (line > pageHeight) ? (PDF.addPage(), line = 20) : line += 10;
+  
+        if (line > pageHeight) {
+          PDF.addPage();
+          line = 20;
+        }
+  
+        PDF.setLineWidth(0.5);
+        PDF.line(15, line - 5, 195, line - 5); 
+  
+        line += 10;
+  
         PDF.text(`* Atendido por ${turn.specialist} el día ${dayFormat}`, 15, line);
-        (line > pageHeight) ? (PDF.addPage(), line = 20) : line += 10;
+        line += 10;
+  
         PDF.text(`* Especialidad: ${turn.specialty}`, 15, line);
-        (line > pageHeight) ? (PDF.addPage(), line = 20) : line += 10;
+        line += 10;
+  
         PDF.text(`* Altura: ${turn.height}`, 15, line);
-        (line > pageHeight) ? (PDF.addPage(), line = 20) : line += 10;
+        line += 10;
+  
         PDF.text(`* Peso: ${turn.weight}`, 15, line);
-        (line > pageHeight) ? (PDF.addPage(), line = 20) : line += 10;
+        line += 10;
+  
         PDF.text(`* Temperatura: ${turn.temperature}`, 15, line);
-        (line > pageHeight) ? (PDF.addPage(), line = 20) : line += 10;
+        line += 10;
+  
         PDF.text(`* Presión: ${turn.pressure}`, 15, line);
-        (line > pageHeight) ? (PDF.addPage(), line = 20) : line += 10;
-        if (turn.name1 != '') {
-          PDF.text(`* ${turn.name1}: ${turn.value1}`, 15, line);
-          (line > pageHeight) ? (PDF.addPage(), line = 20) : line += 10;
-        }
-        if (turn.name2 != '') {
-          PDF.text(`* ${turn.name2}: ${turn.value2}`, 15, line);
-          (line > pageHeight) ? (PDF.addPage(), line = 20) : line += 10;
-        }
-        if (turn.name3 != '') {
-          PDF.text(`* ${turn.name3}: ${turn.value3}`, 15, line);
-          (line > pageHeight) ? (PDF.addPage(), line = 20) : line += 10;
-        }
-        if (turn.name4 != '') {
-          PDF.text(`* ${turn.name4}: ${turn.value4}`, 15, line);
-          (line > pageHeight) ? (PDF.addPage(), line = 20) : line += 10;
-        }
-        if (turn.name5 != '') {
-          PDF.text(`* ${turn.name5}: ${turn.value5}`, 15, line);
-          (line > pageHeight) ? (PDF.addPage(), line = 20) : line += 10;
-        }
-        if (turn.name6 != '') {
-          PDF.text(`* ${turn.name6}: ${turn.value6}`, 15, line);
-          (line > pageHeight) ? (PDF.addPage(), line = 20) : line += 10;
-        }
-      })
+        line += 10;
+  
+        const customFields = [
+          { name: turn.name1, value: turn.value1 },
+          { name: turn.name2, value: turn.value2 },
+          { name: turn.name3, value: turn.value3 },
+          { name: turn.name4, value: turn.value4 },
+          { name: turn.name5, value: turn.value5 },
+          { name: turn.name6, value: turn.value6 }
+        ];
+  
+        customFields.forEach(field => {
+          if (field.name) {
+            if (line > pageHeight) {
+              PDF.addPage();
+              line = 20;
+            }
+  
+            PDF.text(`* ${field.name}: ${field.value}`, 15, line);
+            line += 10;
+          }
+        });
+      });
+  
       PDF.save('historia-clínica.pdf');
     } else {
-      this.modal.modalMessage("El paciente no tiene historia clínica", 'error');
+      this.modal.modalMessage('El paciente no tiene historia clínica', 'error');
     }
   }
-
-  downloadForSpecialty(specialty: string) {
-    let newList = this.listSummary.filter(fill => fill.specialty == specialty);
-    if (newList && newList.length > 0) {
-      var line = 70;
-      let PDF = new jsPDF('p', 'mm', 'a4',);
-      let pageHeight = (PDF.internal.pageSize.height) - 10;
-      PDF.addImage('../../assets/icon.png', 'PNG', 10, 10, 50, 50);
-      const date = new Date().toLocaleString();
-      PDF.text(`${date}`, 150, 10);
-      PDF.text(`Clínica Online`, 70, 20);
-      PDF.text(`Historial de turnos de ${newList[0].patient}`, 70, 30);
-      newList.forEach(turn => {
-        let dayFormat = new FormatDayPipe().transform(turn);
-        PDF.text(`-----------------------------------------------------`, 15, line);
-        (line > pageHeight) ? (PDF.addPage(), line = 20) : line += 10;
-        PDF.text(`* Atendido por ${turn.specialist} el día ${dayFormat}`, 15, line);
-        (line > pageHeight) ? (PDF.addPage(), line = 20) : line += 10;
-        PDF.text(`* Especialidad: ${turn.specialty}`, 15, line);
-        (line > pageHeight) ? (PDF.addPage(), line = 20) : line += 10;
-        PDF.text(`* Altura: ${turn.height}`, 15, line);
-        (line > pageHeight) ? (PDF.addPage(), line = 20) : line += 10;
-        PDF.text(`* Peso: ${turn.weight}`, 15, line);
-        (line > pageHeight) ? (PDF.addPage(), line = 20) : line += 10;
-        PDF.text(`* Temperatura: ${turn.temperature}`, 15, line);
-        (line > pageHeight) ? (PDF.addPage(), line = 20) : line += 10;
-        PDF.text(`* Presión: ${turn.pressure}`, 15, line);
-        (line > pageHeight) ? (PDF.addPage(), line = 20) : line += 10;
-        if (turn.name1 != '') {
-          PDF.text(`* ${turn.name1}: ${turn.value1}`, 15, line);
-          (line > pageHeight) ? (PDF.addPage(), line = 20) : line += 10;
-        }
-        if (turn.name2 != '') {
-          PDF.text(`* ${turn.name2}: ${turn.value2}`, 15, line);
-          (line > pageHeight) ? (PDF.addPage(), line = 20) : line += 10;
-        }
-        if (turn.name3 != '') {
-          PDF.text(`* ${turn.name3}: ${turn.value3}`, 15, line);
-          (line > pageHeight) ? (PDF.addPage(), line = 20) : line += 10;
-        }
-        if (turn.name4 != '') {
-          PDF.text(`* ${turn.name4}: ${turn.value4}`, 15, line);
-          (line > pageHeight) ? (PDF.addPage(), line = 20) : line += 10;
-        }
-        if (turn.name5 != '') {
-          PDF.text(`* ${turn.name5}: ${turn.value5}`, 15, line);
-          (line > pageHeight) ? (PDF.addPage(), line = 20) : line += 10;
-        }
-        if (turn.name6 != '') {
-          PDF.text(`* ${turn.name6}: ${turn.value6}`, 15, line);
-          (line > pageHeight) ? (PDF.addPage(), line = 20) : line += 10;
-        }
-      })
-      PDF.save('historia-clínica.pdf');
-    } else {
-      this.modal.modalMessage("El paciente no tiene turnos realizados", 'error');
-    }
+  
 
 
-
-  }
 
 
 

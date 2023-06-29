@@ -24,9 +24,6 @@ export class NavbarComponent implements OnInit {
       this.role = this.getRole();
       if (userRef) {
         this.admin = this.userService.getUserEmail(userRef.email, 'users');
-        // this.admin.subscribe(user => {
-        //   user.forEach(us => this.role = us.role);
-        // })
       }
     })
   }

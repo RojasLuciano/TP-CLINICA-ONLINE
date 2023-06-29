@@ -20,4 +20,15 @@ export class Turns {
     status?: Status;
     commentCancel?: string;
     review?: string;
+    //
+    height?: number;
+    weight?: number;
+    temperature?: number;
+    pressure?: number;
+    name1?: string;
+    value1?: string;
+    name2?: string;
+    value2?: string;
+    name3?: string;
+    value3?: string;
 }

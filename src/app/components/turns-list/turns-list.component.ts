@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Summary } from 'src/app/entities/summary';
 import { Turns } from 'src/app/entities/turns';
 import { AuthService } from 'src/app/services/auth.service';
 import { ModalService } from 'src/app/services/modal.service';
@@ -19,11 +20,51 @@ export class TurnsListComponent implements OnInit {
 
   constructor(private userService: UsersService, private authService: AuthService, private modal: ModalService) { }
 
+
   ngOnInit(): void {
     this.userLogged.then((res) => {
-      this.userService.getTurnId(res?.uid!, "patientUid").subscribe(turn => {
-        this.turns = turn;
-      })
+      this.userService.getTurnId(res?.uid!, "patientUid").subscribe(turns => {
+        const combinedTurns: Turns[] = [];
+  
+        turns.forEach((turn: Turns) => {
+          this.userService.getSummaryTurnId2(turn.id!).then((summary: Summary[]) => {
+            const combinedTurn: Turns = {
+              id: turn.id,
+              name: turn.name,
+              nameDate: turn.nameDate,
+              specialist: turn.specialist,
+              specialistUid: turn.specialistUid,
+              specialty: turn.specialty,
+              patient: turn.patient,
+              patientUid: turn.patientUid,
+              date: turn.date,
+              day: turn.day,
+              dayWeek: turn.dayWeek,
+              month: turn.month,
+              hour: turn.hour,
+              minutes: turn.minutes,
+              poll: turn.poll,
+              rating: turn.rating,
+              status: turn.status,
+              commentCancel: turn.commentCancel,
+              review: turn.review,
+              height: summary[0]?.height,
+              weight: summary[0]?.weight,
+              temperature: summary[0]?.temperature,
+              pressure: summary[0]?.pressure,
+              name1: summary[0]?.name1,
+              value1: summary[0]?.value1,
+              name2: summary[0]?.name2,
+              value2: summary[0]?.value2,
+              name3: summary[0]?.name3,
+              value3: summary[0]?.value3
+            };
+            combinedTurns.push(combinedTurn); 
+          });
+        });
+        this.turns = combinedTurns; 
+        console.log(this.turns);
+      });
     });
   }
 

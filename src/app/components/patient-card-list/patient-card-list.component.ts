@@ -5,6 +5,7 @@ import { Summary } from 'src/app/entities/summary';
 import { Turns } from 'src/app/entities/turns';
 import { User } from 'src/app/entities/user';
 import { AuthService } from 'src/app/services/auth.service';
+import { ModalService } from 'src/app/services/modal.service';
 import { UsersService } from 'src/app/services/users.service';
 
 @Component({
@@ -20,11 +21,11 @@ export class PatientCardListComponent implements OnInit {
   turns1: Turns[] = [];
   userLogged = this.authService.getCurrentUser();
   specialist: string = '';
-
+  textFill: string = '';
   turnSelected!: Turns;
   summarySelected!: Summary;
 
-  constructor(private userService: UsersService, private authService: AuthService, private modalService: NgbModal) { }
+  constructor(private userService: UsersService, private authService: AuthService, private modalService: NgbModal, private modal: ModalService) { }
 
   ngOnInit(): void {
     this.userLogged.then((res) => {
@@ -36,13 +37,22 @@ export class PatientCardListComponent implements OnInit {
     return turns.length;
   }
 
-  onClickTurn(turn: Turns, content: any) {
-    this.turnSelected = turn;
-    this.userService.getSummaryTurnId(turn.id!).then((sus) => {
-      if (sus) {
-        this.summarySelected = sus[0];
-        this.modalService.open(content);
+    
+    onClickTurn(user: User, content: any) {
+      console.log(user.id);
+      this.userService.getTurnId(user.uid!, "patientUid").subscribe(turns => {
+        this.turns1 = turns;
+        this.modalService.open(content, { size: 'xl' });
+        console.log(this.turns1);
       }
-    })
+      )
+    }
+
+
+  onClickShowReview(tuns: Turns) {
+    this.modal.modalMessageOk(tuns.review ?? 'Sin datos', 'info');
   }
+
+
 }
+

@@ -10,7 +10,6 @@ import { RoleValidator } from '../helpers/role-validator';
 import { Turns } from '../entities/turns';
 import firebase from 'firebase/compat/app';
 import { Summary } from '../entities/summary';
-import { InfoCard } from '../entities/info-card';
 
 @Injectable({
   providedIn: 'root'
@@ -51,7 +50,6 @@ export class UsersService extends RoleValidator {
     const querySnapshot = await getDocs(q);
 
     querySnapshot.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
       console.log(doc.id, " => ", doc.data());
       return doc.data();
     });
@@ -229,6 +227,24 @@ export class UsersService extends RoleValidator {
       });
   }
 
+  getAll_Turns(patient: User) {
+    const data: Turns[] = [];
+    return firebase
+      .firestore()
+      .collection('turns')
+      .where('patientUid', '==', patient.uid)
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          data.push(doc.data());
+        });
+        return data;
+      })
+      .catch((error) => {
+        console.log('Error getting documents: ', error);
+      });
+  }
+
   getAllFinallyTurns() {
     const data: Turns[] = [];
     return firebase
@@ -263,11 +279,7 @@ export class UsersService extends RoleValidator {
       });
   }
 
-  getTurnId(userUid: string, typeUser: string): Observable<Turns[]> {
-    const pattientRef = collection(this.firestore, 'turns');
-    const q = query(pattientRef, where(typeUser, "==", userUid));
-    return collectionData(q, { idField: 'id' }) as Observable<Turns[]>;
-  }
+
 
   getTurnsAll(): Observable<Turns[]> {
     const userRef = collection(this.firestore, 'turns');
@@ -334,6 +346,12 @@ export class UsersService extends RoleValidator {
     return collectionData(q, { idField: 'id' }) as Observable<Summary[]>;
   }
 
+  getTurnId(userUid: string, typeUser: string): Observable<Turns[]> {
+    const pattientRef = collection(this.firestore, 'turns');
+    const q = query(pattientRef, where(typeUser, "==", userUid));
+    return collectionData(q, { idField: 'id' }) as Observable<Turns[]>;
+  }
+
   getSummaryTurnId(userUid: string) {
     const data: Summary[] = [];
     return firebase
@@ -352,20 +370,26 @@ export class UsersService extends RoleValidator {
       });
   }
 
-  //InfoCard
-  /*
-  getInfoCards(specialist:User):Observable<InfoCard>{
-    let turns = this.getTurnId(specialist.uid!,'SpecialistUid');
-    
-    let newInfoCard = {
-      photoUrl:
-    }
-}
-  updateSchule(user: ScheduleManagement, change: ScheduleManagement) {
-    const placeRef = doc(this.firestore, `schedules/${user.id}`);
-    return updateDoc(placeRef, { schedule: change.schedule, timeShift: change.timeShift });
+  getSummaryTurnId2(userUid: string): Promise<Summary[]> {
+  const data: Summary[] = [];
+  return firebase
+    .firestore()
+    .collection('summary')
+    .where('turnUid', '==', userUid)
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        data.push(doc.data());
+      });
+      return data;
+    })
+    .catch((error) => {
+      console.log('Error getting documents: ', error);
+      return []; 
+    });
+
   }
-*/
+
   async addTurnsToUser(users: User[], turn: Turns[]) {
     let empty: Turns[] = [];
     return await users.forEach(user => {

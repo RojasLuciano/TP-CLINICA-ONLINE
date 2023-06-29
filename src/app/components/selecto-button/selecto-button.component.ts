@@ -22,7 +22,7 @@ export class SelectoButtonComponent implements OnInit {
   }
 
   datos() {
-    console.log(this.listParent);
+    console.log("selecto-button", this.listParent);
   }
 
 }

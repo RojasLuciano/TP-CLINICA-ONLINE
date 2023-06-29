@@ -34,4 +34,6 @@ export class TurnsComponent implements OnInit {
   selector(item: Turns) {
     this.itemSelected.emit(item);
   }
+
+  
 }

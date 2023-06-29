@@ -1,8 +1,10 @@
 <div class="btn-group btn-group-sm m-1">
-    <div *ngFor="let item of listParent; index as i">
-        <label *ngIf="item.specialty" class="btnLabel" for="{{item.name}}">{{ item.name }}</label>
-        <input class="btn" appButtonRadiusSensitive appButtonClicked2 type="image" src="{{item.photoURL}}"
-            name="{{className}}" id="{{item.name}}" width="150" height="150" (click)="selector(item)"
-            autocomplete="off">
-    </div>
-</div>
+      <div *ngFor="let item of listParent; index as i">
+        <label *ngIf="item.specialty" class="btn btn-label" for="{{item.name}}">{{ item.name }}</label>
+        <button class="btn btn-rectangular" (click)="selector(item)">
+          <img class="btn-image" src="{{item.photoURL}}" alt="{{item.name}}" width="150" height="150">
+        </button>
+      </div>
+  </div>
+  
+  

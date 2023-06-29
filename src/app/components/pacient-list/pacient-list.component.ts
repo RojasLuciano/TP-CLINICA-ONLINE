@@ -14,13 +14,20 @@ import { Turns } from 'src/app/entities/turns';
 export class PacientListComponent implements OnInit {
 
   public users: any = [];
-  isCard = false;
+  isCard = true;
 
   constructor(private userService: UsersService, private modal: ModalService) { }
 
+  shouldShowCard(index: number): boolean {
+    const activeSlideIndex = Math.floor(index / 5);
+    const firstVisibleIndex = activeSlideIndex * 5;
+    const lastVisibleIndex = firstVisibleIndex + 4;
+    return index >= firstVisibleIndex && index <= lastVisibleIndex;
+  }
+  
 
   ngOnInit(): void {
-    // this.userService.getUserAllPatient().subscribe((users) => {
+
      this.userService.getUserAll().subscribe((users) => {
        this.users = users;
      })
@@ -38,34 +45,39 @@ export class PacientListComponent implements OnInit {
   }
 
   downloadTurns(user: User) {
-    this.userService.getFinallyTurns(user).then(res => {
-
+    this.userService.getAll_Turns(user).then(res => {
       if (res && res.length > 0) {
         var line = 70;
         let turns: Turns[] = res!;
         let PDF = new jsPDF('p', 'mm', 'a4',);
-        let pageHeight = (PDF.internal.pageSize.height) - 10;
+        let pageHeight = PDF.internal.pageSize.height - 10;
         PDF.addImage('../../assets/icon.png', 'PNG', 10, 10, 50, 50);
         const date = new Date().toLocaleString();
         PDF.text(`Clínica Online`, 70, 20);
         PDF.text(`Historial de turnos de ${user.name} ${user.lastName}`, 70, 30);
+  
         turns.forEach(turn => {
+          if (line > pageHeight) {
+            PDF.addPage();
+            line = 20;
+          }
           PDF.text(`-----------------------------------------------------`, 15, line);
-          (line > pageHeight) ? (PDF.addPage(), line = 20) : line += 10;
+          line += 10;
           PDF.text(`* Fecha: ${turn.nameDate}`, 15, line);
-          (line > pageHeight) ? (PDF.addPage(), line = 20) : line += 10;
+          line += 10;
           PDF.text(`* Especialidad: ${turn.specialty}`, 15, line);
-          (line > pageHeight) ? (PDF.addPage(), line = 20) : line += 10;
+          line += 10;
           PDF.text(`* Especialista: ${turn.specialist}`, 15, line);
-          (line > pageHeight) ? (PDF.addPage(), line = 20) : line += 10;
-
-        })
+          line += 10;
+        });
+  
         PDF.save('historia-clínica.pdf');
       } else {
         this.modal.modalMessage("El paciente no tiene turnos realizados", 'error');
       }
-    })
+    });
   }
+  
 
 
 }

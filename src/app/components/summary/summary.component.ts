@@ -115,7 +115,7 @@ export class SummaryComponent implements OnInit {
       this.summary = this.fb.group({
         height: ['', [Validators.max(210), Validators.min(50)]],
         weight: ['', [Validators.min(2), Validators.max(500)]],
-        temperature: ['', [Validators.min(30), Validators.max(45)]],
+        temperature: ['', [Validators.min(25), Validators.max(45)]],
         pressure: ['', [Validators.min(60), Validators.max(140)]],
         name1: ['', [Validators.minLength(2), Validators.maxLength(20)]],
         value1: ['', [Validators.minLength(2), Validators.maxLength(20)]],

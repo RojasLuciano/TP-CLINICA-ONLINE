@@ -32,13 +32,60 @@ export class TurnsListAssignedComponent implements OnInit {
 
   constructor(private userService: UsersService, private authService: AuthService, private modal: ModalService, private modalService: NgbModal) { }
 
+  // ngOnInit(): void {
+  //   this.userLogged.then((res) => {
+  //     this.userService.getTurnId(res?.uid!, "specialistUid").subscribe(turn => {
+  //       this.turns = turn;
+  //     })
+  //   });
+  // }
+
   ngOnInit(): void {
     this.userLogged.then((res) => {
-      this.userService.getTurnId(res?.uid!, "specialistUid").subscribe(turn => {
-        this.turns = turn;
-      })
+      this.userService.getTurnId(res?.uid!, "specialistUid").subscribe(turns => {
+        const combinedTurns: Turns[] = [];
+  
+        turns.forEach((turn: Turns) => {
+          this.userService.getSummaryTurnId2(turn.id!).then((summary: Summary[]) => {
+            const combinedTurn: Turns = {
+              id: turn.id,
+              name: turn.name,
+              nameDate: turn.nameDate,
+              specialist: turn.specialist,
+              specialistUid: turn.specialistUid,
+              specialty: turn.specialty,
+              patient: turn.patient,
+              patientUid: turn.patientUid,
+              date: turn.date,
+              day: turn.day,
+              dayWeek: turn.dayWeek,
+              month: turn.month,
+              hour: turn.hour,
+              minutes: turn.minutes,
+              poll: turn.poll,
+              rating: turn.rating,
+              status: turn.status,
+              commentCancel: turn.commentCancel,
+              review: turn.review,
+              height: summary[0]?.height,
+              weight: summary[0]?.weight,
+              temperature: summary[0]?.temperature,
+              pressure: summary[0]?.pressure,
+              name1: summary[0]?.name1,
+              value1: summary[0]?.value1,
+              name2: summary[0]?.name2,
+              value2: summary[0]?.value2,
+              name3: summary[0]?.name3,
+              value3: summary[0]?.value3
+            };
+            combinedTurns.push(combinedTurn); 
+          });
+        });
+        this.turns = combinedTurns; 
+      });
     });
   }
+  
 
   onClickAccepted(tuns: Turns) {
     this.modal.modalCancelConfirmMsg("¿Desea aceptar el turno?", "Se aceptará el turno", 'info', "aceptarlo").then((result) => {
@@ -77,8 +124,7 @@ export class TurnsListAssignedComponent implements OnInit {
           this.turnSelected = tuns;
           this.modalService.open(content);
         }
-        //this.userService.updateTurnsFinnally(tuns, 'Finalized');
-        //this.modal.modalSimple("Finalizado", "Se finalizó el turno correctamente", "success");        
+      
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         this.modal.modalSimple("Cancelado", "El turno queda pendiente de terminar", "error");
       }

@@ -2,21 +2,51 @@
 
     <div class="row" *ngFor="let user of users; index as i">
         <div class="column" *ngIf="count(user.turns!) > 0">
-            <div class="card" appButtonSensitive style="width: 18rem;">
-                <img class="card-img-top" src="{{user.photoURL}}" alt="">
-                <div class="card-body">
-                    <h5 class="card-title">{{user.name}}</h5>
-                    <p class="card-text">{{user.role}}</p>
-                    <div *ngFor="let turn of user.turns; index as i">
-                        <div *ngIf="turn.specialistUid == specialist">
-                            <a (click)="onClickTurn(turn, content)" class="btn btn-primary">{{turn.nameDate}}</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <button (click)="onClickTurn(user, content)" class="btn rounded-circle btn-floating-action image-button">
+                <img class="rounded-circle" src="{{user.photoURL}}" alt="">
+                <p class="card-text">{{user.name}}</p>
+            </button>
         </div>
     </div>
     <ng-template #content let-c="close" let-d="dismiss">
-        <app-summary [turn]="turnSelected" [editSummary]="summarySelected" [isDisable]="true"></app-summary>
+        <br>
+        <br>
+        <br>
+
+        <div class="input-group input-group-sm mb-6">
+            <span class="input-group-text" id="inputGroup-sizing-sm">Filtro</span>
+            <input type="text" [(ngModel)]="textFill" class="form-control" aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-sm">
+        </div>
+
+        <div style="max-height: 500px;max-width: 5000px; overflow-y: auto;">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Especialista</th>
+                        <th scope="col">Especialidad</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col">Reseña</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr appButtonSensitive
+                        *ngFor="let user of (turns1 | turnsFilter : textFill : ['date','specialist','specialty','status']) ; let i = index">
+                        <th scope="row">{{ i + 1 }}</th>
+                        <td>{{user | tunsDay}} {{ user | tunsHour }}</td>
+                        <td>{{ user.specialist }}</td>
+                        <td>{{ user.specialty }}</td>
+                        <td>{{user.status | statusTra}}</td>
+                        <td *ngIf="(user.status == 'Finalized' && user.review) else review"><button
+                                (click)="onClickShowReview(user)" class="btn btn-outline-info">Ver</button></td>
+                        <ng-template #review>
+                            <td><button disabled class="btn btn-outline-dark">Ver</button></td>
+                        </ng-template>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </ng-template>
 </div>

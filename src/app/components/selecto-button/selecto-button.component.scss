@@ -28,3 +28,38 @@
     position: relative;
     margin-top: 20px;
 }
+
+/* request-shift.component.scss */
+
+.btn-rectangular {
+    border-radius: 0;  /* Remove the default button border-radius */
+    /* Add any additional styling for rectangular buttons */
+  }
+  
+
+  .btn-label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  .btn {
+    padding: 0;
+    border: none;
+    background: none;
+  }
+  
+  .btn-rectangular {
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+  }
+  
+  .btn-image {
+    display: block;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+  }
+  

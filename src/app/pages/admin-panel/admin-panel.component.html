@@ -2,7 +2,7 @@
     <div *ngIf="userBase.enable; else verify">
         <div *ngIf="userBase.role === 'Admin'; else welcome">
             <div class="profile">
-                <div class="center card" style="width: 70%;">
+                <div class="center card" style="width: 40%;">
                     <h3 class="text-center">Listado de usuarios</h3>
                     <hr>
                     <app-pacient-list></app-pacient-list>
