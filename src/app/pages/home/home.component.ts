@@ -1,6 +1,6 @@
 import { trigger, transition, useAnimation } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
-import { rotateCubeToRight, slide, rotateFlipToLeft, fromRightEasing, scaleDownFromBottom, rotateFlipToBottom } from 'ngx-router-animations';
+import { rotateCubeToRight,rotateCubeToLeft, slide, rotateFlipToLeft, fromRightEasing, scaleDownFromBottom, rotateFlipToBottom } from 'ngx-router-animations';
 
 @Component({
   selector: 'app-home',
@@ -8,13 +8,13 @@ import { rotateCubeToRight, slide, rotateFlipToLeft, fromRightEasing, scaleDownF
   styleUrls: ['./home.component.scss'],
   animations: [
     trigger('panel', [
-      transition('* => panel', useAnimation(fromRightEasing))
+      transition('* => panel', useAnimation(rotateCubeToLeft))
     ]),
     trigger('profile', [
-      transition('* => profile', useAnimation(rotateCubeToRight))
+      transition('* => profile', useAnimation(rotateCubeToLeft))
     ]),
     trigger('turns', [
-      transition('* => turns', useAnimation(scaleDownFromBottom))
+      transition('* => turns', useAnimation(rotateCubeToLeft))
     ]),
     trigger('request', [
       transition('* => request', useAnimation(rotateCubeToRight))

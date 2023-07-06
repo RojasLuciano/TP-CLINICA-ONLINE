@@ -12,7 +12,7 @@ export class ImgChangeDirective {
 
   @HostListener('mouseenter') onMouseEnter() {
     this.highSrc('../../assets/icon.png');
-    this.highlight('6%');
+    this.highlight('20%');
   }
 
   @HostListener('mouseleave') onMouseLeave() {

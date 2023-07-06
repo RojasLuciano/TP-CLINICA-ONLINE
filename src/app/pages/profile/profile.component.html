@@ -5,11 +5,7 @@
                 <div class="picsum-img-wrapper">
                     <img [src]="img" alt="" style="width: 100%;" />
                 </div>
-                <!-- <div class="carousel-caption">
-                    <h3>{{userBase.name + " " + userBase.lastName}}</h3>
-                    <a class="btn btn-sm btn-outline-light" (click)="setImg(img)">Seleccionar ésta foto de
-                        perfil.</a>
-                </div> -->
+
             </ng-template>
         </ngb-carousel>
         <div class="card-body">
@@ -62,18 +58,16 @@
                                 Ingrese su correo electronico.
                             </div>
                         </div>
-                        <!-- <div class="d-flex justify-content-center">
-                            <button type="submit" class="btn btn-primary" style="width: 80%;"
-                                (click)="onSubmit()">ENVIAR</button>
-                        </div> -->
+
                     </form>
                     <div *ngIf="userBase.role == 'Specialist'" class="d-flex justify-content-center">
                         <button type="submit" class="btn btn-primary" style="width: 80%;"
                             (click)="scheduleStatus()">Gestionar mis Horarios</button>
                     </div>
                     <div *ngIf="userBase.role == 'Patient'" class="d-flex justify-content-center">
-                        <button type="submit" class="btn btn-primary" style="width: 80%;"
-                            (click)="summaryStatus()">Historia Clínica</button>
+                        <button type="submit" class="btn btn-primary" appButtonClicked2 style="width: 80%;"
+                        (click)="summaryStatus()">Historia Clínica</button>
+                
                     </div>
                 </div>
             </div>

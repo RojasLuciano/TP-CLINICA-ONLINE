@@ -1,4 +1,5 @@
 import { Directive, ElementRef, HostListener, Input, Renderer2 } from '@angular/core';
+
 @Directive({
   selector: '[appButtonClicked2]'
 })
@@ -7,17 +8,20 @@ export class ButtonClicked2Directive {
 
   constructor(
     private readonly el: ElementRef,
+    private readonly renderer: Renderer2
   ) {
-    this.el.nativeElement.style.backgroundColor = '#77acfd';
-    this.el.nativeElement.style.borderRadius = '100%';
+    this.renderer.setStyle(this.el.nativeElement, 'background-color', 'blue');
   }
 
-  @HostListener('click') onClick() {
-    this.highlight('white');
-  };
+  @HostListener('mouseenter') onMouseEnter() {
+    this.highlight('lightblue');
+  }
+
+  @HostListener('mouseleave') onMouseLeave() {
+    this.highlight('blue');
+  }
 
   private highlight(color: string) {
-    this.el.nativeElement.style.backgroundColor = color;
+    this.renderer.setStyle(this.el.nativeElement, 'background-color', color);
   }
-
 }

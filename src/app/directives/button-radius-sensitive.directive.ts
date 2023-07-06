@@ -11,7 +11,7 @@ export class ButtonRadiusSensitiveDirective {
 
   @HostListener('mouseenter') onMouseEnter() {
     this.highlight('#777fe3');
-    this.highRadius('30%');
+    this.highRadius('60%');
   }
 
   @HostListener('mouseleave') onMouseLeave() {

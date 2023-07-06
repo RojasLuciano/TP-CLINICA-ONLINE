@@ -164,7 +164,6 @@ export class SummaryComponent implements OnInit {
       this.disabled = true;
     }
     this.newSummary = this.editSummary;
-    //console.log(this.editSummary);
   }
 
   loadEditData(code: any) {

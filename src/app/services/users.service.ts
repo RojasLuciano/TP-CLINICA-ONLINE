@@ -73,11 +73,7 @@ export class UsersService extends RoleValidator {
     return collectionData(q, { idField: 'id' }) as Observable<User[]>;
   }
 
-  getUserAllSpecialist(): Observable<User[]> {
-    const pattientRef = collection(this.firestore, 'users');
-    const q = query(pattientRef, where("role", "==", "Specialist"));
-    return collectionData(q, { idField: 'id' }) as Observable<User[]>;
-  }
+
 
   getUserAll(): Observable<User[]> {
     const userRef = collection(this.firestore, 'users');
@@ -262,6 +258,71 @@ export class UsersService extends RoleValidator {
         console.log('Error getting documents: ', error);
       });
   }
+
+  getAllFinallyTurnsBySpecialist(especialista: string) {
+    const data: Turns[] = [];
+    return firebase
+      .firestore()
+      .collection('turns')
+      .where('specialist', '==', especialista)
+      .where('status', '==', 'Finalized')
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          data.push(doc.data());
+        });
+        return data;
+      })
+      .catch((error) => {
+        console.log('Error getting documents: ', error);
+      });
+  }
+
+
+
+  getAllFinallyTurnsWithTime(fechaInicio: string, fechaFin: string, especialista: string) {
+    const data: Turns[] = [];
+    const fechaInicioday = parseInt(fechaInicio.substring(0, 2));
+    const fechaInicioPartsmonth = parseInt(fechaInicio.substring(3, 5));
+   
+    const fechaInicioday2 = parseInt(fechaFin.substring(0, 2));
+    const fechaInicioPartsmonth2 = parseInt(fechaFin.substring(3, 5));
+  
+    console.log("fechaInicioday", fechaInicioday);
+    console.log("fechaInicioPartsmonth", fechaInicioPartsmonth);
+  
+    console.log("fechaInicioday2", fechaInicioday2);
+    console.log("fechaInicioPartsmonth2", fechaInicioPartsmonth2);
+  
+    return firebase
+      .firestore()
+      .collection('turns')
+      .where('specialist', '==', especialista)
+      .where('day', '>=', fechaInicioday)
+      .where('month', '>=', fechaInicioPartsmonth)
+      .where('day', '<=', fechaInicioday2)
+      .where('month', '<=', fechaInicioPartsmonth2)
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          data.push(doc.data());
+        });
+        return data;
+      })
+      .catch((error) => {
+        console.log('Error getting documents: ', error);
+      });
+  }
+  
+  
+  splitDate(date: Date) {
+    const dateString = date.toString();
+    const [_, month, day] = dateString.split(' ');
+  
+    return { day, month };
+  }
+  
+
   getAllTurns() {
     const data: Turns[] = [];
     return firebase
@@ -420,10 +481,31 @@ export class UsersService extends RoleValidator {
     })
   }
 
-  //Logs
+
   getLogsAll(): Observable<any[]> {
     const userRef = collection(this.firestore, 'logs');
     return collectionData(userRef, { idField: 'id' }) as Observable<any[]>;
   }
+
+  getUserAllSpecialist(): Observable<User[]> {
+    const pattientRef = collection(this.firestore, 'users');
+    const q = query(pattientRef, where("role", "==", "Specialist"));
+    return collectionData(q, { idField: 'id' }) as Observable<User[]>;
+  }
+
+
+  getTurnsBySpecialist(patientUid: string, specialistUid: string): Observable<User[]> {
+    const pattientRef = collection(this.firestore, 'turns');
+    const q = query(pattientRef, where("patientUid", "==", patientUid), where("specialistUid", "==", specialistUid));
+    return collectionData(q, { idField: 'id' }) as Observable<User[]>;
+  }
+
+
+  
+  
+
+
+    
+
 
 }

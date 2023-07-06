@@ -10,7 +10,7 @@ export class SummaryFilterPipe implements PipeTransform {
   transform(items: Summary[], keyword: any, properties: string[]): Summary[] {
     if (!items) return [];
     if (!keyword) return items;
-    debugger;
+   // debugger;
     return items.filter(item => {
       var itemFound: Boolean = false;
       for (let i = 0; i < properties.length; i++) {
