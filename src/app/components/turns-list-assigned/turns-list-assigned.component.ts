@@ -32,13 +32,6 @@ export class TurnsListAssignedComponent implements OnInit {
 
   constructor(private userService: UsersService, private authService: AuthService, private modal: ModalService, private modalService: NgbModal) { }
 
-  // ngOnInit(): void {
-  //   this.userLogged.then((res) => {
-  //     this.userService.getTurnId(res?.uid!, "specialistUid").subscribe(turn => {
-  //       this.turns = turn;
-  //     })
-  //   });
-  // }
 
   ngOnInit(): void {
     this.userLogged.then((res) => {
